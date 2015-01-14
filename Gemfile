@@ -24,11 +24,13 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'bcrypt'
+gem 'backbone-on-rails'
 
 group :development do
   gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'pry-rails'
 end
 
 gem 'figaro'
