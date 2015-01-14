@@ -1,9 +1,18 @@
 class User < ActiveRecord::Base
-  validates :email, :password_digest, :session_token, presence: true
-  validates :email, uniqueness: true
+  # validates :email, :password_digest, :session_token, presence: true
+  # validates :email, uniqueness: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
 
   after_initialize :ensure_session_token
+
+  def self.create_with_omniauth(auth)
+    create! do |user|
+      user.provider = auth["provider"]
+      user.uid = auth["uid"]
+      user.username = auth["info"]["name"]
+      user.email = auth["info"]["email"]
+    end
+  end
 
   def self.find_by_credentials(user_params)
     user = nil
@@ -16,6 +25,8 @@ class User < ActiveRecord::Base
 
     user.try(:is_password?, user_params[:password]) ? user : nil
   end
+
+
 
   def self.is_email?(str)
     !!str.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i)
