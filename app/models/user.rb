@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
     create! do |user|
       user.provider = auth["provider"]
       user.uid = auth["uid"]
-      user.username = auth["info"]["name"]
+      user.username = auth["info"]["nickname"]
+      user.avatar = auth["info"]["image"]
       user.email = auth["info"]["email"]
     end
   end
@@ -26,8 +27,6 @@ class User < ActiveRecord::Base
     user.try(:is_password?, user_params[:password]) ? user : nil
   end
 
-
-
   def self.is_email?(str)
     !!str.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i)
   end
@@ -40,9 +39,9 @@ class User < ActiveRecord::Base
     self.password_digest.is_password?(password)
   end
 
-  def password_digest
-    BCrypt::Password.new(super)
-  end
+  # def password_digest
+#     BCrypt::Password.new(super)
+#   end
 
   def ensure_session_token
     self.session_token ||= generate_session_token

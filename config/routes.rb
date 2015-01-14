@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: 'static_pages#index'
-  get "/auth/:provider/callback" => "sessions#create"
+  get "/auth/:provider/callback" => "api/sessions#create"
   namespace :api, defaults: { format: :json } do
     resource :sessions, only: [:signin, :create, :destroy]
     resources :users, only: [ :show ]
