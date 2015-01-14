@@ -8,6 +8,12 @@
 </head>
 <body>
 
+<% if current_user %>
+  <p class="notice">
+    <%= current_user.email %> signed in
+  </p>
+<% end %>
+
 <%= render 'layouts/header' %>
 
 <%= yield %>

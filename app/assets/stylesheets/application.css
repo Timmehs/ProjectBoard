@@ -19,6 +19,14 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:300);
 
 
-body {
-
+p.notice {
+  background-color: #49ca60;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  border-radius: 4px;
+  display: inline-block;
+  position: absolute;
+  top: 100px;
+  right: 10px;
 }

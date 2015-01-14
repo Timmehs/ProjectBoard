@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'users/new'
-
   root to: 'static_pages#index'
-
+  resource :sessions, only: [:signin, :create, :destroy]
 end

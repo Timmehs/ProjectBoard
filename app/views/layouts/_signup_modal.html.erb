@@ -7,11 +7,32 @@
         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
       </div>
       <div class="modal-body">
-        ...
+
+        <div id="signin-form">
+          <form class="form-group " action="/sessions" method="POST">
+            <input type="hidden" name="authenticity_token"
+            value="<%= form_authenticity_token %>" >
+            <div class="form-group">
+              <label for="email-field">Username or Email Address</label>
+              <input id="email-field" type="text"
+              class="form-control"
+              name="session[email]" placeholder="Email/Username">
+            </div>
+
+            <div class="form-group">
+              <label for="password-field">Password</label>
+              <input id="password-field" type="password"
+              name="session[password]"
+              placeholder="Password"
+              class="form-control">
+            </div>
+
+        </div>
+
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
