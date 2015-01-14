@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class Api::SessionsController < ApplicationController
 
   # def create
   #   @user = User.find_by_credentials(params[:session]);
@@ -18,7 +18,10 @@ class SessionsController < ApplicationController
     sign_in!(user)
     redirect_to root_url, :notice => "Signed in!"
   end
-
+  
+  def current
+    render json: current_user.username
+  end
 
   def destroy
     log_out!(current_user) if current_user

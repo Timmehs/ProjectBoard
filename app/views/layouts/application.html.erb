@@ -20,5 +20,9 @@
 
 <%= render 'layouts/signup_modal' %>
 
+
+<script>
+	CURRENT_USER = <%= current_user ? current_user.id : 0 %>;
+</script>
 </body>
 </html>

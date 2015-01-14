@@ -4,7 +4,8 @@ window.ProjectBoard = {
   Views: {},
   Routers: {},
   initialize: function() {
-    alert('Hello from Backbone!');
+    new ProjectBoard.Routers.Router();
+		Backbone.history.start();
   }
 }
 

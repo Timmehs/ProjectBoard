@@ -2,6 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#main-wrapper {
+	width: 80%;
+	height: 100%;
+	background-color: white;
+}
 
 .navbar-list{
   list-style: none;
@@ -14,10 +19,11 @@
   * {
     display: inline-block;
   }
-
-
 }
+
 .auth-buttons {
   float: right;
   margin-top: 5px;
 }
+
+
