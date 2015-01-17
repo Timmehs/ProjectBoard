@@ -1,7 +1,6 @@
 class Api::ProjectsController < ApplicationController
   def index
-    @projects = Project.all
-    render json: @projects
+    @projects = Project.includes(:author).all
   end
 
 

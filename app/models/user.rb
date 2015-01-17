@@ -22,6 +22,13 @@ class User < ActiveRecord::Base
 
   after_initialize :ensure_session_token
 
+  has_many(
+    :projects,
+    class_name: "Project",
+    foreign_key: :owner_id,
+    primary_key: :id
+  )
+
   def self.create_with_omniauth(auth)
     create! do |user|
       user.provider = auth["provider"]

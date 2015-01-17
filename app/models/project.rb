@@ -16,6 +16,11 @@
 
 class Project < ActiveRecord::Base
 
-
+  belongs_to(
+    :author,
+    class_name: "User",
+    foreign_key: :owner_id,
+    primary_key: :id
+  )
 
 end
