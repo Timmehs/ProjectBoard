@@ -1,7 +1,5 @@
-ProjectBoard.Collections.projects = Backbone.Collection.extend({
+ProjectBoard.Collections.Projects = Backbone.Collection.extend({
 	model: ProjectBoard.Models.Project,
-	url: ''
-	
-	
+	url: 'https://api.github.com/users/' + window.currentUser.get('username') + '/repos',
 	
 });

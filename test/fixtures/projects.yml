@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  owner_id: 1
+  html_url: MyString
+  homepage: MyString
+  stargazers: 1
+  watchers: 1
+  notifications_url: MyString
+
+two:
+  name: MyString
+  owner_id: 1
+  html_url: MyString
+  homepage: MyString
+  stargazers: 1
+  watchers: 1
+  notifications_url: MyString

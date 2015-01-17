@@ -1,13 +1,11 @@
 <nav class="navbar">
     <h2>ProjectBoard</h2>
     <div class="auth-buttons right">
-      <% if !current_user %>
-        <button data-target="#myModal" data-toggle="modal" class="button button-primary">SIGN IN</button>
-        <a href="#" class="button">SIGN UP</a>
-      <% else %>
+      <% if current_user %>
 				<div class="user-avatar" 
 						 style="background-image: url(<%= current_user.avatar %>)"></div>
-        <a data-method="delete" href="/api/sessions" rel="nofollow" class="btn btn-default logout">Logout</a>
+        <a data-method="delete" href="/api/sessions" rel="nofollow" 
+					 class="btn btn-default logout">Logout</a>
       <% end %>
     </div>
 </nav>
