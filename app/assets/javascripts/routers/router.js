@@ -6,7 +6,9 @@ ProjectBoard.Routers.Router = Backbone.Router.extend({
 	initialize: function() {
 		this.$rootEl = $("#main-wrapper");
 		window.currentUser = new ProjectBoard.Models.User({id: CURRENT_USER});
-		currentUser.fetch();
+		currentUser.fetch().done(function() {
+      notify('Welcome ' + currentUser.get('username'));
+    });
 	},
 
 	home: function() {

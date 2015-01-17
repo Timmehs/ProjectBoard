@@ -12,3 +12,9 @@ window.ProjectBoard = {
 $(function() {
   ProjectBoard.initialize()
 });
+
+var showNotice = function(msg) {
+  $('.notice').html(msg);
+  $('.notice').addClass('notifying');
+  setTimeout(function() { $('.notice').removeClass('notifying'); }, 3000 );
+};
