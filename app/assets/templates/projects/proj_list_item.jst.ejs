@@ -6,7 +6,9 @@
     </button>
   </div>
   <div class="p author col-md-2">
-    <h4><%= project.escape('author') %></h4>
+    <h4>
+    by <a href='<%= project.authorGithub() %>' ><%= project.authorName() %></a>
+    </h4>
   </div>
 </div>
 <div class="row">
@@ -22,7 +24,8 @@
 <div class="row">
   <div class="p col-md-12 btns">
     <span class="buttons-left">
-      <a href='<%= project.get("homepage") %>'>website</a> | <a href="<%= project.get('html_url') %>">github</a>
+      <a target="_blank" href='<%= project.get("homepage") %>'>website</a> |
+      <a target="_blank" href="<%= project.get('html_url') %>">github</a>
     </span>
   </div>
 </div>
