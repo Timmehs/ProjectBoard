@@ -1,17 +1,28 @@
 
 div.pi {
-  background-color: white;
-  project.container {
-    width: 80%;
-  }
-
-  div.row {
-    margin: 15px;
+  background-color: gainsboro;
+  padding: 30px;
+  .row {
+    margin-left: 0px;
+    margin-right: 0px;
   }
   .p {
     padding: 5px;
-    background-color: gainsboro;
-    border-radius: 5px;
+    h1, h2, h3, h4 {
+      margin: 0;
+    }
+  }
+
+  .desc p {
+    width: 90%;
+    margin-bottom: 0px;
+  }
+
+  .tags {
+    font-size: 12px;
+    font-style: italic;
+    padding: 0px;
+    padding-left: 10px;
   }
 
 
