@@ -35,7 +35,9 @@ group :development do
   gem 'pry-rails'
   gem 'annotate'
 end
-
+group :production, :staging do
+  gem 'rails_12factor'
+end
 gem 'figaro'
 gem 'omniauth'
 gem 'omniauth-github'
