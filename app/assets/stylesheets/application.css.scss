@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require bootstrap.min.css
+ *= require magic-bootstrap.css
  *= require_tree .
  *= require_self
  *= require normalize
@@ -19,5 +20,19 @@
 @import "font-awesome";
 
 body {
-  font-family: 'Raleway', 'Helvetica';
+  font-family: 'Raleway';
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Helvetica';
+}
+
+h2.brand {
+  font-family: 'Raleway';
+}
+
+
+
+.btn.btn-primary {
+
 }

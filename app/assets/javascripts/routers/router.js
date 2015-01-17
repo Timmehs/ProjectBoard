@@ -6,13 +6,10 @@ ProjectBoard.Routers.Router = Backbone.Router.extend({
 	initialize: function() {
 		this.$rootEl = $("#main-wrapper");
 		window.currentUser = new ProjectBoard.Models.User({id: CURRENT_USER});
-		currentUser.fetch().done(function() {
-      notify('Welcome ' + currentUser.get('username'));
-    });
 	},
 
 	home: function() {
-		if (currentUser) {
+		if (signedIn()) {
       var projects = new ProjectBoard.Collections.Projects();
       var view = new ProjectBoard.Views.ProjectIndex({
         collection: projects
@@ -29,3 +26,7 @@ ProjectBoard.Routers.Router = Backbone.Router.extend({
 
 
 });
+
+var signedIn = function() {
+  return currentUser.id != 0;
+};
