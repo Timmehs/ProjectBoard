@@ -1,8 +1,10 @@
 
 div.pi {
-  background-color: gainsboro;
-  width: 70%;
+  background-color: white;
+  border-radius: 5px;
   margin: 0 auto;
+  padding-top: 15px;
+  padding-bottom: 15px;
   .row {
     margin-left: 0px;
     margin-right: 0px;
@@ -15,26 +17,47 @@ div.pi {
     }
   }
 
-  .desc p {
-    width: 90%;
+  button.star-btn {
+    margin-left: 5px;
+    margin-bottom: 5px;
+  }
+
+
+
+  .p.desc p {
     margin-bottom: 0px;
   }
 
-  .tags {
+  .p.tags {
     font-size: 12px;
     font-style: italic;
     padding: 0px;
     padding-left: 10px;
   }
 
-  .buttons-left {
-    text-align: left;
+
+
+  .p span.buttons-left {
+    float: left;
   }
 
-  .buttons-right {
-    text-align: right;
+  .p span.buttons-right {
+    float: right;
   }
 
+}
 
+@media screen and (max-width: 991px) {
+  div.pi {
+    width: 100%;
 
+    button.star-btn {
+      float: right;
+    }
+
+    span.buttons-right {
+      float: right;
+      margin-left: 10px;
+    }
+  }
 }
