@@ -18,6 +18,8 @@
 
 .navbar {
   height: 70px;
+	width: 85%;
+	margin: 0 auto;
   position: relative;
   padding: 10px;
   * {
@@ -32,7 +34,6 @@
 .auth-buttons {
   float: right;
 	height: 57px;
-	width: 120px;
 	.logout {
 		float: right;
 		margin-top: 5px;
@@ -42,6 +43,24 @@
 		width: 45px;
 		float:left;
 		border-radius: 50%;
+		margin-right: 10px;
 		background-size: 45px 45px;;
+	}
+}
+
+@media screen and (max-width: 1000px) {
+	.navbar {
+		width: 100%;
+	}
+
+	#main-wrapper {
+		width: 90%;
+	}
+}
+
+@media screen and (max-width: 750px) {
+
+	#main-wrapper {
+		width: 100%;
 	}
 }
