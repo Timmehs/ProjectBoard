@@ -2,12 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 #main-wrapper {
 	max-width: 1300px;
 	height: 100%;
 	width: 60%;
 	margin: 0 auto;
-	background-color: whitesmoke;
 	padding: 10px;
 	position: relative;
 }
@@ -23,6 +23,10 @@
   * {
     display: inline-block;
   }
+
+	h2 {
+		margin-top: 3px;
+	}
 }
 
 .auth-buttons {

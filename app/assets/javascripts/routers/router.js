@@ -12,8 +12,16 @@ ProjectBoard.Routers.Router = Backbone.Router.extend({
 	},
 
 	home: function() {
-		console.log('home');
-	}
+		if (currentUser) {
+
+    }
+	},
+
+  _swapView: function(view) {
+    this._currentView && this._currentView.remove();
+    this.$rootEl.html(view.render().$el);
+    this._currentView = view;
+  }
 
 
 });
