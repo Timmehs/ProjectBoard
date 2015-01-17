@@ -1,5 +1,11 @@
 ProjectBoard.Collections.Projects = Backbone.Collection.extend({
 	model: ProjectBoard.Models.Project,
-	url: 'https://api.github.com/users/' + window.currentUser.get('username') + '/repos',
+	url: '',
+	initialize: function(options) {
+		this.user = options.user;
+		this.url = 'https://api.github.com/users/' + this.user.get('username') + '/repos';
+		console.log(options.user);
+	},
+	
 	
 });
