@@ -18,7 +18,6 @@ p1 = Project.create({
   description:  "Music sharing for musicians inspired by Soundcloud. Built with rails, backbone, and jquery.",
   stargazers: 0,
   watchers: 0,
-  notifications_url:  "https://api.github.com/repos/Timmehs/Demogogue/notifications{?since,all,participating}"
   })
 
 # disAsteroids
@@ -48,7 +47,6 @@ p4 = Project.create({
   uid: 28905791,
   name: 'nagChat',
   owner_id:  4,
-  owner_uid: 6488787,
   html_url: "https://github.com/Timmehs/nagChat",
   homepage: 'http://nagchat.herokuapp.com',
   description: "Nag at your friends and loved ones through this node.js app!",
