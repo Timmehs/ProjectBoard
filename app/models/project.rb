@@ -9,7 +9,6 @@
 #  homepage          :string(255)      not null
 #  stargazers        :integer          not null
 #  watchers          :integer          not null
-#  notifications_url :string(255)      not null
 #  created_at        :datetime
 #  updated_at        :datetime
 #  uid               :integer
