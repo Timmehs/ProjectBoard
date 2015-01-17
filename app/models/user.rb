@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  github_name     :string(255)
+#  email           :string(255)
+#  password_digest :string(255)
+#  session_token   :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#  uid             :string(255)
+#  provider        :string(255)
+#  username        :string(255)
+#  avatar          :string(255)
+#
+
 class User < ActiveRecord::Base
   # validates :email, :password_digest, :session_token, presence: true
   # validates :email, uniqueness: true
