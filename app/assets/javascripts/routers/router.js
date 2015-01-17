@@ -13,7 +13,11 @@ ProjectBoard.Routers.Router = Backbone.Router.extend({
 
 	home: function() {
 		if (currentUser) {
-
+      var projects = new ProjectBoard.Collections.Projects();
+      var view = new ProjectBoard.Views.ProjectIndex({
+        collection: projects
+      });
+      this._swapView(view);
     }
 	},
 
