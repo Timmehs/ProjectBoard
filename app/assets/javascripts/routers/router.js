@@ -1,22 +1,32 @@
 ProjectBoard.Routers.Router = Backbone.Router.extend({
   routes: {
     "" : "home",
+    "projects/new" : "newProjectPage"
   },
 
 	initialize: function() {
 		this.$rootEl = $("#main-wrapper");
 		window.currentUser = new ProjectBoard.Models.User({id: CURRENT_USER});
+    currentUser.fetch().done(function(){
+      console.log( currentUser.get('username') + ' data acquired');
+      currentUser.ghProjects().fetch();
+    });
 	},
 
 	home: function() {
 		if (signedIn()) {
-      var projects = new ProjectBoard.Collections.Projects();
+      var projects = ProjectBoard.Collections.projects;
       var view = new ProjectBoard.Views.ProjectIndex({
         collection: projects
       });
       this._swapView(view);
     }
 	},
+
+  newProjectPage: function(event) {
+    var view = new ProjectBoard.Views.NewProject();
+    this._swapView(view);
+  },
 
   _swapView: function(view) {
     this._currentView && this._currentView.remove();

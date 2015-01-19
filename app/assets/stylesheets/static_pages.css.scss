@@ -34,17 +34,24 @@
 .auth-buttons {
   float: right;
 	height: 57px;
-	.logout {
+	* {
 		float: right;
-		margin-top: 5px;
+		margin: 5px;
 	}
+
+	.new_proj_btn {
+		color: gray;
+		font-size: 35px;
+		&:hover {
+			color: black;
+		}
+	}
+
 	.user-avatar {
-		height: 45px;
-		width: 45px;
-		float:left;
-		border-radius: 50%;
-		margin-right: 10px;
-		background-size: 45px 45px;;
+		height: 33px;
+		width: 33px;
+		border-radius: 14%;
+		background-size: 33px 33px;
 	}
 }
 

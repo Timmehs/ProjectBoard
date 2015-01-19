@@ -18,7 +18,7 @@ ProjectBoard.Views.ProjectIndex = Backbone.CompositeView.extend({
     _.each(this.collection.models, function(project) {
       var projectView =
         new ProjectBoard.Views.ProjectListItem({ model: project });
-      view.addSubview(' .pi', projectView);
+      view.addSubview('.pi', projectView);
     });
 
     this.renderSubviews();

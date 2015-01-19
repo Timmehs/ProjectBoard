@@ -1,0 +1,62 @@
+<h2>Add a project</h2>
+
+<div class="new-container container">
+  <div class="row">
+    <div class="form-container col-md-8">
+      <form class="form-horizontal new-form">
+        <div class="form-group">
+          <label for="project-title" class="col-sm-3 control-label">title</label>
+          <input type="hidden" id="project-title" name="project[title]">
+          <input type="hidden" id="project-uid" name="project[uid]">
+          <input type="hidden" id="project-ownerid" name="project[owner_id]">
+
+          <div class="col-sm-9">
+            <span class="project-title">Demogogue</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="project-tags" class="col-sm-3 control-label">tags</label>
+          <div class="col-sm-9" style="padding-top: 7px">
+            <span class="project-tags">#rails #media #backbone </span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-9">
+          <input class="form-control" id="project-tags" placeholder="project tags"></input>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="project-desc" class="col-sm-3 control-label">description</label>
+          <div class="col-sm-9">
+            <textarea class="form-control" id="project-desc" placeholder="Project Description"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="project-github" class="col-sm-3 control-label">github</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="project-github" name="project[html_url]">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="project-homepage" class="col-sm-3 control-label">website</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="project-homepage" name="project[homepage]">
+          </div>
+        </div>
+        <div class='form-group'>
+          <div class="col-sm-offset-3 col-sm-9">
+            <button type="submit" class="btn btn-primary">Add Project</a>
+            </div>
+          </div>
+      </form>
+    </div>
+    <div class="github-projects-container col-md-4">
+      <h4>Github projects</h4>
+      <div class="github-list"></div>
+
+
+
+
+    </div> <!-- End GH Projects -->
+  </div> <!-- End Row -->
+</div>

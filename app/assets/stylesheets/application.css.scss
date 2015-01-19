@@ -25,9 +25,13 @@ body {
 
 h1, h2, h3, h4, h5 {
   font-family: 'Helvetica';
+  &.brand {
+    font-family: 'Raleway';
+  }
 }
 
-h2.brand {
+h1.brand {
+  margin-top: 7px;
   font-family: 'Raleway';
 }
 

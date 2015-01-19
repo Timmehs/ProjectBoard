@@ -1,0 +1,29 @@
+
+
+
+.github-projects-container {
+
+
+}
+
+
+.form-container {
+}
+
+.project-title {
+  font-size: 23px;
+}
+
+.github-list button {
+  margin-bottom: 10px;
+  i {
+    margin-left: 5px;
+    color: dimgray;
+    opacity: 0;
+    transition: 0.7s;
+  }
+
+  &:hover i {
+    opacity: 1;
+  }
+}
