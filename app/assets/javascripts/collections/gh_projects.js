@@ -4,11 +4,4 @@ ProjectBoard.Collections.GithubProjects = Backbone.Collection.extend({
     return "http://api.github.com/users/" + user + "/repos";
   },
 
-  // initialize: function() {
-  //
-  //   if (user) {
-  //     this.url =  "http://api.github.com/users/" + user + "/repos"
-  //   }
-  // }
-
 });

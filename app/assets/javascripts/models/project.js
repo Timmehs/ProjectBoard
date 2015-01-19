@@ -1,5 +1,5 @@
 ProjectBoard.Models.Project = Backbone.Model.extend({
-	urlRoot: "/projects",
+	urlRoot: "api/projects",
 
 	pbScore: function() {
 

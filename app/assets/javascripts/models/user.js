@@ -4,7 +4,7 @@ ProjectBoard.Models.User = Backbone.Model.extend({
 	ghProjects: function() {
 		this._ghProjects = this._ghProjects || new ProjectBoard.Collections.GithubProjects();
 		return this._ghProjects;
-	}
+	},
 
 
 

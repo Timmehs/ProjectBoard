@@ -5,12 +5,17 @@ class Api::ProjectsController < ApplicationController
 
 
   def create
-    @project = Project.new(params[:project])
+    @project = Project.new(project_params)
     if @project.save
       console.log('user_created')
     else
-      flash[:errors] = @project.errors.full_messages
+      raise Exception.new(@project.errors.full_messages)
     end
   end
 
+  private
+  def project_params
+    params.require(:project).permit(:name, :uid, :owner_id, :html_url,
+      :homepage, :description, :tags)
+  end
 end
