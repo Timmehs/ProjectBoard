@@ -13,7 +13,12 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
     ProjectBoard.Collections.projects.create(projectParams, {
       wait: true,
       success: function() {
-        console.log('success');
+				var newProjectName = arguments[0].get('name');
+				$('form.new-form').trigger("reset");
+				$('.project-title').empty();
+				$('.project-tags').empty();
+        Backbone.history.navigate('#', { trigger: true });
+				notify(newProjectName + " added to Project Board");
       },
       error: function(data, response) {
         var errors = $.parseJSON(response.responseText).errors;
