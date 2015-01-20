@@ -1,12 +1,12 @@
 <h2>Add a project</h2>
-
+<div class="form-errors"></div>
 <div class="new-container container">
   <div class="row">
     <div class="form-container col-md-8">
       <form class="form-horizontal new-form">
         <div class="form-group">
           <label for="project-title" class="col-sm-3 control-label">title</label>
-          <input type="hidden" id="project-title" name="project[title]">
+          <input type="hidden" id="project-title" name="project[name]">
           <input type="hidden" id="project-uid" name="project[uid]">
           <input type="hidden" id="project-ownerid" name="project[owner_id]" value=<%= CURRENT_USER %> >
 
@@ -35,7 +35,7 @@
         <div class="form-group">
           <label for="project-desc" class="col-sm-3 control-label">description</label>
           <div class="col-sm-9">
-            <textarea class="form-control" id="project-desc" placeholder="Project Description"></textarea>
+            <textarea class="form-control" id="project-desc" name="project[description]" placeholder="Project Description"></textarea>
           </div>
         </div>
 

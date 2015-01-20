@@ -8,6 +8,7 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
 
   addProject: function(event) {
     event.preventDefault();
+    var $formErrorView = this.$('.form-errors');
     var projectParams = $(event.currentTarget).serializeJSON();
     ProjectBoard.Collections.projects.create(projectParams, {
       wait: true,
@@ -15,7 +16,22 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
         console.log('success');
       },
       error: function(data, response) {
-        debugger
+        var errors = $.parseJSON(response.responseText).errors;
+        $formErrorView.empty();
+        _.each(errors, function(error) {
+          if (error !== "Uid can't be blank" ) {
+              $formErrorView.append(
+                "<span class='error'>" +
+                  "<i class='fa fa-exclamation-circle'></i> "
+                  + error +
+                "</span>");
+          };
+        });
+        $formErrorView.append("<i class='fa fa-plus-circle close'></i>");
+        $formErrorView.addClass("active");
+        this.$('i.close').on('click', function() {
+          $formErrorView.removeClass('active');
+        });
       },
 
     })
@@ -29,7 +45,8 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
   populateForm: function(event) {
     var gProjectId = $(event.currentTarget).data('id');
     var gProject = this.collection.find({ id: gProjectId });
-    $('#project-uid').val(gProjectId);
+    console.log(gProjectId);
+    $('#project-uid').val(gProject.get('id'));
     $('.project-title').html(gProject.get('name'));
     $("#project-title").val(gProject.get('name'));
     $('#project-tags').val(gProject.get('language'));

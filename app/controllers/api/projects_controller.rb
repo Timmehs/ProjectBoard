@@ -9,7 +9,7 @@ class Api::ProjectsController < ApplicationController
     if @project.save
       console.log('user_created')
     else
-      raise Exception.new(@project.errors.full_messages)
+      render json: { errors: @project.errors.full_messages }, status: 422
     end
   end
 
