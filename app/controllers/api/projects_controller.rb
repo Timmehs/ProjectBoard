@@ -7,7 +7,7 @@ class Api::ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     if @project.save
-      console.log('user_created')
+      render json: @project
     else
       render json: { errors: @project.errors.full_messages }, status: 422
     end

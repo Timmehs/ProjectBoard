@@ -2,7 +2,7 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
   template: JST['projects/new'],
 
   events: {
-    "click button" : "populateForm",
+    "click button.gh-project-btn" : "populateForm",
     "submit form" : "addProject"
   },
 
@@ -33,7 +33,6 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
           $formErrorView.removeClass('active');
         });
       },
-
     })
   },
 
@@ -45,8 +44,7 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
   populateForm: function(event) {
     var gProjectId = $(event.currentTarget).data('id');
     var gProject = this.collection.find({ id: gProjectId });
-    console.log(gProjectId);
-    $('#project-uid').val(gProject.get('id'));
+ 	 	$('#project-uid').val(gProjectId);
     $('.project-title').html(gProject.get('name'));
     $("#project-title").val(gProject.get('name'));
     $('#project-tags').val(gProject.get('language'));
