@@ -15,6 +15,16 @@ ProjectBoard.Models.Project = Backbone.Model.extend({
 
 	authorName: function() {
 		return this.get('author').username;
+	},
+
+	ghUrl: function() {
+		return "http://api.github.com/repos/" + this.authorName() + "/" + this.get('name');
+	},
+
+	commits: function() {
+		$.get(this.ghUrl() + "/commits").done(function() {
+			debugger
+		});
 	}
 
 });
