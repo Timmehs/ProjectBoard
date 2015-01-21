@@ -1,6 +1,9 @@
 class Api::UsersController < ApplicationController
   def show
-    @user = User.find(params[:id])
-    render json: @user
+    @user = User.includes(:projects).find(params[:id])
+  end
+
+  def index
+    @users = User.includes(:projects).all
   end
 end

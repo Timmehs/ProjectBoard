@@ -21,10 +21,14 @@ ProjectBoard.Models.Project = Backbone.Model.extend({
 		return "http://api.github.com/repos/" + this.authorName() + "/" + this.get('name');
 	},
 
-	commits: function() {
-		$.get(this.ghUrl() + "/commits").done(function() {
-			debugger
+	weekInCommits: function(success) {
+		var ownerCommits = [];
+		$.get(this.ghUrl() + "/stats/participation", function(obj, code) {
+			ownerCommits = obj.owner[51];
+			success.call(ownerCommits);
 		});
+
+
 	}
 
 });

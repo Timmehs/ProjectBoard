@@ -7,5 +7,10 @@ ProjectBoard.Models.User = Backbone.Model.extend({
 	},
 
 
+	weekInCommits: function() {
+
+	},
+
+
 
 });
