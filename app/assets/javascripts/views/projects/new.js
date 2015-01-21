@@ -5,16 +5,28 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
     "click button.gh-project-btn" : "populateForm",
     "submit form" : "addProject",
 		"keydown #add-project-tags" : "submitTag",
+    "click .tag-close" : "removeTag"
   },
-	
+
 	addTag: function(tag) {
+    tag = tag.toLowerCase();
 		$('#project-tags').val(function(i, val) {
-			return val + (val ? '' : ', ' + tag);
+      debugger
+			return val + (val === '' ? tag : ',' + tag);
 		});
-		tag = tag[0] === "#" ? tag : "#" + tag;
-		$('.project-tags').append("  " + tag);
+    debugger
+		$('.project-tags').append(
+      "<span class='tag'>" + tag
+      + "<i data-tag='" + tag + "' class='fa fa-plus-circle tag-close'></span>");
+    $('.project-tags:last-child').fadeIn();
 	},
-	
+
+  removeTag: function(e) {
+    var tag = $(e.currentTarget).data('tag');
+    var tags = $('#project-tags').val();
+    debugger
+  },
+
 	submitTag: function(e) {
 		if (e.keyCode === 13) {
 			e.preventDefault();
@@ -33,7 +45,7 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
 			console.log('newp');
 		}
 	},
-	
+
 	isValidTag: function(string) {
 		return (string.length < 30 && string.length > 0);
 	},
@@ -84,8 +96,7 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
  	 	$('#project-uid').val(gProjectId);
     $('.project-title').html(gProject.get('name'));
     $("#project-title").val(gProject.get('name'));
-    $('#project-tags').val(gProject.get('language'));
-    $('.project-tags').html("#" + gProject.get('language') );
+    this.addTag(gProject.get('language'));
     $('#project-desc').val(gProject.get('description'));
     $('#project-github').val(gProject.get('html_url'));
     $('#project-homepage').val(gProject.get('homepage'))
@@ -111,7 +122,7 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
 
     this.renderSubviews();
   },
-	
+
 	projectListed: function(project) {
 		return _.contains(ProjectBoard.Collections.projects.pluck('name'), project.get('name') );
 	}

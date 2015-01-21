@@ -51,6 +51,22 @@
   font-size: 23px;
 }
 
+span.tag {
+	padding: 5px;
+	background-color: rgb(114, 209, 250);
+	padding-left: 6px;
+	padding-right: 5px;
+	border-radius: 4px;
+	font-size: 15px;
+	i {
+		font-size: 12px;
+		margin-left: 8px;
+		cursor: pointer;
+		transform: rotate(45deg);
+	}
+	margin-right: 7px;
+}
+
 .github-list button {
   margin-bottom: 10px;
   i {
