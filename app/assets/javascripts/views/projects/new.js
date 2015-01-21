@@ -3,8 +3,40 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
 
   events: {
     "click button.gh-project-btn" : "populateForm",
-    "submit form" : "addProject"
+    "submit form" : "addProject",
+		"keydown #add-project-tags" : "submitTag",
   },
+	
+	addTag: function(tag) {
+		$('#project-tags').val(function(i, val) {
+			return val + (val ? '' : ', ' + tag);
+		});
+		tag = tag[0] === "#" ? tag : "#" + tag;
+		$('.project-tags').append("  " + tag);
+	},
+	
+	submitTag: function(e) {
+		if (e.keyCode === 13) {
+			e.preventDefault();
+			var $tagField = $(e.currentTarget);
+			if ($('.project-title').text() === '') {
+				$tagField.val('');
+				warn('You must load a project first!');
+				return;
+			}
+			var input = $tagField.val();
+			$tagField.val('');
+			if (this.isValidTag(input)) {
+				this.addTag(input);
+			}
+		} else {
+			console.log('newp');
+		}
+	},
+	
+	isValidTag: function(string) {
+		return (string.length < 30 && string.length > 0);
+	},
 
   addProject: function(event) {
     event.preventDefault();
