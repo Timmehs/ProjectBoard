@@ -5,3 +5,4 @@ ProjectBoard.Collections.Projects = Backbone.Collection.extend({
 
 
 ProjectBoard.Collections.projects = new ProjectBoard.Collections.Projects();
+ProjectBoard.Collections.projects.fetch();

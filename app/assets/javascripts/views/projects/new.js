@@ -68,12 +68,19 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
 
   updateSubviews: function() {
     var view = this;
+		this.clearSubviews('.github-list');
     _.each(this.collection.models, function(project) {
-      var projectView =
-      new ProjectBoard.Views.GithubListItem({ model: project });
-      view.addSubview('.github-list', projectView);
+			if (!view.projectListed(project)) {
+	      var projectView =
+	      	new ProjectBoard.Views.GithubListItem({ model: project });
+	      view.addSubview('.github-list', projectView);
+			}
     });
 
     this.renderSubviews();
-  }
+  },
+	
+	projectListed: function(project) {
+		return _.contains(ProjectBoard.Collections.projects.pluck('name'), project.get('name') );
+	}
 });

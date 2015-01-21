@@ -15,6 +15,7 @@ ProjectBoard.Views.ProjectIndex = Backbone.CompositeView.extend({
 
   updateSubviews: function() {
     var view = this;
+		this.clearSubviews('.pi');
     _.each(this.collection.models, function(project) {
       var projectView =
         new ProjectBoard.Views.ProjectListItem({ model: project });
