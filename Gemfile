@@ -23,8 +23,8 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
-gem 'bcrypt'
 gem 'backbone-on-rails'
+gem 'acts-as-taggable-on', '~> 3.4'
 
 gem 'font-awesome-rails'
 
