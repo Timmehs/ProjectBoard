@@ -18,7 +18,9 @@
 class Project < ActiveRecord::Base
   validates :name, :owner_id, :html_url, :uid, :description, presence: true
   validates :name, uniqueness: true
-  
+
+  acts_as_taggable
+
   belongs_to(
     :author,
     class_name: "User",

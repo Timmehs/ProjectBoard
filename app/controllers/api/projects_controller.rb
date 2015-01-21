@@ -22,6 +22,6 @@ class Api::ProjectsController < ApplicationController
   private
   def project_params
     params.require(:project).permit(:name, :uid, :owner_id, :html_url,
-      :homepage, :description, :tags)
+      :homepage, :description, :tag_list)
   end
 end
