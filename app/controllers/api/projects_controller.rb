@@ -1,6 +1,6 @@
 class Api::ProjectsController < ApplicationController
   def index
-    @projects = Project.includes(:author).all
+    @projects = Project.includes(:author, :tags).all
   end
 
 

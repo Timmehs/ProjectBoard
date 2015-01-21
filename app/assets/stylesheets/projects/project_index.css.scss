@@ -30,9 +30,22 @@ div.project {
 
   .p.tags {
     font-size: 12px;
-    font-style: italic;
     padding: 0px;
-    padding-left: 10px;
+    padding-left: 5px;
+
+    ul {
+      list-style: none;
+      padding-left: 0px;
+      li {
+        padding-left: 5px;
+        background-color: #72d1fa;
+        color: white;
+        padding-right: 5px;
+        border-radius: 3px;
+        margin-right: 8px;
+        float: left;
+      }
+    }
   }
 
 

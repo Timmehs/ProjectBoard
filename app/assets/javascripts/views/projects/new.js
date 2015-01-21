@@ -9,15 +9,16 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
   },
 
 	addTag: function(tag) {
-    tag = tag.toLowerCase();
-		$('#project-tags').val(function(i, val) {
-			return val + (val === '' ? tag : ',' + tag);
-		});
+    if (this.isValidTag(tag)) {
+      tag = tag.toLowerCase();
+      $('#project-tags').val(function(i, val) {
+        return val + (val === '' ? tag : ',' + tag);
+      });
 
-		$('.project-tags').append(
-      "<span data-tag='" + tag + "' class='tag'>" + tag
-      + "<i data-tag='" + tag + "' class='fa fa-plus-circle tag-close'></span>");
-    $('.project-tags:last-child').fadeIn();
+      $('.project-tags').append(
+        "<span data-tag='" + tag + "' class='tag'>" + tag
+        + "<i data-tag='" + tag + "' class='fa fa-plus-circle tag-close'></span>");
+    }
 	},
 
   removeTag: function(e) {
@@ -51,16 +52,32 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
       warn('Tag must be less than 15 characters!');
       return false;
     } else if ($('#project-tags').val().match(string.toLowerCase()) !== null) {
-      warn('Tag already added');
+      this.showFormError("Duplicate tag forbidden");
       return false;
     } else {
       return true;
     }
 	},
 
+  showFormError: function(error) {
+    var $formErrorView = this.$('.form-errors');
+    $formErrorView.append(
+      "<span class='error'>" +
+      "<i class='fa fa-exclamation-circle'></i> "
+      + error +
+      "</span>"
+    );
+    $formErrorView.append("<i class='fa fa-plus-circle close'></i>");
+    $formErrorView.addClass("active");
+    this.$('i.close').on('click', function() {
+      $formErrorView.removeClass('active');
+    });
+
+  },
+
   addProject: function(event) {
     event.preventDefault();
-    var $formErrorView = this.$('.form-errors');
+    var view = this;
     var projectParams = $(event.currentTarget).serializeJSON();
     ProjectBoard.Collections.projects.create(projectParams, {
       wait: true,
@@ -74,21 +91,13 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
       },
       error: function(data, response) {
         var errors = $.parseJSON(response.responseText).errors;
-        $formErrorView.empty();
+        this.$('.form-errors').empty();
         _.each(errors, function(error) {
           if (error !== "Uid can't be blank" ) {
-              $formErrorView.append(
-                "<span class='error'>" +
-                  "<i class='fa fa-exclamation-circle'></i> "
-                  + error +
-                "</span>");
+            view.showFormError(error);
           };
         });
-        $formErrorView.append("<i class='fa fa-plus-circle close'></i>");
-        $formErrorView.addClass("active");
-        this.$('i.close').on('click', function() {
-          $formErrorView.removeClass('active');
-        });
+
       },
     })
   },
@@ -99,6 +108,8 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
   },
 
   populateForm: function(event) {
+    $('#project-tags').val('');
+    $('.project-tags').text('');
     var gProjectId = $(event.currentTarget).data('id');
     var gProject = this.collection.find({ id: gProjectId });
  	 	$('#project-uid').val(gProjectId);

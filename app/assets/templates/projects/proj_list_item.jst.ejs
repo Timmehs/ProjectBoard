@@ -13,7 +13,13 @@
   </div>
 </div>
 <div class="row">
-  <div class="p tags col-md-12">#rails #media #website</div>
+  <div class="p tags col-md-12">
+    <ul>
+      <% _(project.get('tags')).each(function(tag) { %>
+      <li><%= tag %></li>
+      <% }) %>
+    </ul>
+  </div>
 </div>
 <div class="row">
   <div class="p desc col-md-12">
