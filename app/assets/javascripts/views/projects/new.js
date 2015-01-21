@@ -52,32 +52,16 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
       warn('Tag must be less than 15 characters!');
       return false;
     } else if ($('#project-tags').val().match(string.toLowerCase()) !== null) {
-      this.showFormError("Duplicate tag forbidden");
+      warn('Tag already added');
       return false;
     } else {
       return true;
     }
 	},
 
-  showFormError: function(error) {
-    var $formErrorView = this.$('.form-errors');
-    $formErrorView.append(
-      "<span class='error'>" +
-      "<i class='fa fa-exclamation-circle'></i> "
-      + error +
-      "</span>"
-    );
-    $formErrorView.append("<i class='fa fa-plus-circle close'></i>");
-    $formErrorView.addClass("active");
-    this.$('i.close').on('click', function() {
-      $formErrorView.removeClass('active');
-    });
-
-  },
-
   addProject: function(event) {
     event.preventDefault();
-    var view = this;
+    var $formErrorView = this.$('.form-errors');
     var projectParams = $(event.currentTarget).serializeJSON();
     ProjectBoard.Collections.projects.create(projectParams, {
       wait: true,
@@ -91,13 +75,21 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
       },
       error: function(data, response) {
         var errors = $.parseJSON(response.responseText).errors;
-        this.$('.form-errors').empty();
+        $formErrorView.empty();
         _.each(errors, function(error) {
           if (error !== "Uid can't be blank" ) {
-            view.showFormError(error);
+              $formErrorView.append(
+                "<span class='error'>" +
+                  "<i class='fa fa-exclamation-circle'></i> "
+                  + error +
+                "</span>");
           };
         });
-
+        $formErrorView.append("<i class='fa fa-plus-circle close'></i>");
+        $formErrorView.addClass("active");
+        this.$('i.close').on('click', function() {
+          $formErrorView.removeClass('active');
+        });
       },
     })
   },
