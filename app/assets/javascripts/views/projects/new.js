@@ -11,20 +11,20 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
 	addTag: function(tag) {
     tag = tag.toLowerCase();
 		$('#project-tags').val(function(i, val) {
-      debugger
 			return val + (val === '' ? tag : ',' + tag);
 		});
-    debugger
+
 		$('.project-tags').append(
-      "<span class='tag'>" + tag
+      "<span data-tag='" + tag + "' class='tag'>" + tag
       + "<i data-tag='" + tag + "' class='fa fa-plus-circle tag-close'></span>");
     $('.project-tags:last-child').fadeIn();
 	},
 
   removeTag: function(e) {
     var tag = $(e.currentTarget).data('tag');
-    var tags = $('#project-tags').val();
-    debugger
+    var tags = $('#project-tags').val().split(",");
+    $('#project-tags').val(_(tags).without(tag));
+    this.$("span[data-tag='" + tag + "']").remove();
   },
 
 	submitTag: function(e) {
@@ -47,7 +47,15 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
 	},
 
 	isValidTag: function(string) {
-		return (string.length < 30 && string.length > 0);
+		if (string.length > 15) {
+      warn('Tag must be less than 15 characters!');
+      return false;
+    } else if ($('#project-tags').val().match(string.toLowerCase()) !== null) {
+      warn('Tag already added');
+      return false;
+    } else {
+      return true;
+    }
 	},
 
   addProject: function(event) {
