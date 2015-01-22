@@ -6,6 +6,10 @@ ProjectBoard.Models.User = Backbone.Model.extend({
 		return this._ghProjects;
 	},
 
+	projects: function() {
+		return ProjectBoard.Collections.projects.where({owner_id: this.id });
+	},
+
 
 	weekInCommits: function() {
 

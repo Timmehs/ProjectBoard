@@ -31,6 +31,7 @@
 <div class="row">
   <div class="p col-md-12 btns">
     <span class="buttons-left">
+      <% if (project.get('homepage') == "") { project.set('homepage', project.get('html_url')); } %>
       <a target="_blank" href='<%= project.get("homepage") %>'>website</a> |
       <a target="_blank" href="<%= project.get('html_url') %>">github</a>
     </span>
