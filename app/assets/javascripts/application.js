@@ -17,6 +17,7 @@
 //= require underscore
 //= require backbone
 //= require project_board
+//= require moment
 //= require_tree ../templates
 //= require_tree ./models
 //= require_tree ./collections
