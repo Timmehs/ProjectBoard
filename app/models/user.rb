@@ -3,7 +3,6 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
-#  github_name     :string(255)
 #  email           :string(255)
 #  password_digest :string(255)
 #  session_token   :string(255)

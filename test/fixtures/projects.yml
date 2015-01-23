@@ -7,8 +7,6 @@
 #  owner_id    :integer          not null
 #  html_url    :string(255)      not null
 #  homepage    :string(255)      not null
-#  stargazers  :integer          not null
-#  watchers    :integer          not null
 #  created_at  :datetime
 #  updated_at  :datetime
 #  uid         :integer
