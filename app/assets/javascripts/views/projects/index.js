@@ -3,7 +3,9 @@ ProjectBoard.Views.ProjectIndex = Backbone.CompositeView.extend({
 
   initialize: function(models, options) {
     this.collection.fetch();
+    this.users = ProjectBoard.Collections.users;
     this.listenTo(this.collection, "sync", this.updateSubviews);
+    this.listenTo(this.users, "sync change", this.userChange);
   },
 
   render: function() {
@@ -23,6 +25,10 @@ ProjectBoard.Views.ProjectIndex = Backbone.CompositeView.extend({
     });
 
     this.renderSubviews();
+  },
+
+  userChange: function() {
+    console.log('user change');
   }
 
 });
