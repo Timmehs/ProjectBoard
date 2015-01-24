@@ -1,5 +1,6 @@
 ProjectBoard.Views.ProjectIndex = Backbone.CompositeView.extend({
   template: JST['projects/index'],
+  className: "row",
 
   initialize: function(models, options) {
     this.collection.fetch();
@@ -17,11 +18,11 @@ ProjectBoard.Views.ProjectIndex = Backbone.CompositeView.extend({
 
   updateSubviews: function() {
     var view = this;
-		this.clearSubviews('.pi');
+		this.clearSubviews('.project-index');
     _.each(this.collection.models, function(project) {
       var projectView =
         new ProjectBoard.Views.ProjectListItem({ model: project });
-      view.addSubview('.pi', projectView);
+      view.addSubview('.project-index', projectView);
     });
 
     this.renderSubviews();

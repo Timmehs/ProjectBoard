@@ -21,6 +21,4 @@ ProjectBoard.Models.Project = Backbone.Model.extend({
 		return "http://api.github.com/repos/" + this.authorName() + "/" + this.get('name');
 	},
 
-
-
 });

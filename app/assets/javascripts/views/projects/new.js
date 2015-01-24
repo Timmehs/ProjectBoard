@@ -1,6 +1,8 @@
 ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
   template: JST['projects/new'],
 
+  className: "project-new-container container-fluid",
+
   events: {
     "click button.gh-project-btn" : "populateForm",
     "submit form" : "addProject",
