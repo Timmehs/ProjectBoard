@@ -16,7 +16,7 @@
  *= require_self
  *= require normalize
  */
-@import url(http://fonts.googleapis.com/css?family=Raleway:300);
+@import url(http://fonts.googleapis.com/css?family=Raleway:300,600);
 @import "font-awesome";
 
 body {
@@ -24,10 +24,7 @@ body {
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: 'Helvetica';
-  &.brand {
-    font-family: 'Raleway';
-  }
+  font-family: 'Raleway';
 }
 
 h1.brand {
