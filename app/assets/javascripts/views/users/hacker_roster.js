@@ -1,4 +1,4 @@
-ProjectBoard.Views.ProjectIndex = Backbone.CompositeView.extend({
+ProjectBoard.Views.HackerRoster = Backbone.CompositeView.extend({
   template: JST['users/hacker_index_item'],
 
   initialize: function() {
