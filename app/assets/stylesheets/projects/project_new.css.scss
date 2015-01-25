@@ -66,16 +66,28 @@ div.project-new-container {
 
   .github-list button {
     margin-bottom: 10px;
+    width: auto;
+    transition: 1s;
     i {
       margin-left: 5px;
       color: dimgray;
       opacity: 0;
+      display: none;
       transition: 0.7s;
     }
 
     &:hover i {
       opacity: 1;
+      display: inline;
     }
   }
 
+}
+
+
+@media screen and (max-width: 500px) {
+  .github-list button {
+    font-size: 2.2vw;
+    width: 100%;
+  }
 }
