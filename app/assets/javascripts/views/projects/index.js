@@ -17,15 +17,9 @@ ProjectBoard.Views.ProjectIndex = Backbone.CompositeView.extend({
   },
 
   updateProjects: function() {
-    var view = this;
-		this.clearSelector('.project-index');
-    _.each(this.collection.models, function (project) {
-      var projectView =
-        new ProjectBoard.Views.ProjectListItem({ model: project });
-      view.addSubview('.project-index', projectView);
-    });
-
-    this.renderSubviews('.project-index');
+    console.log('updateProjects');
+    this.refreshSubviews(
+      '.project-index', this.collection, ProjectBoard.Views.ProjectListItem);
   },
 
   updateHackers: function() {

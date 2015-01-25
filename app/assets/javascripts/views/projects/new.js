@@ -98,7 +98,8 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
 
   initialize: function() {
     this.collection = currentUser.ghProjects();
-    this.listenTo(this.collection, "sync", this.updateSubviews);
+    this.collection.fetch();
+    this.listenTo(this.collection, "sync", this.updateGithubList);
   },
 
   populateForm: function(event) {
@@ -118,22 +119,22 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
   render: function(){
     var content = this.template();
     this.$el.html(content);
-    this.updateSubviews();
+    this.updateGithubList();
     return this;
   },
 
-  updateSubviews: function() {
+  updateGithubList: function() {
     var view = this;
-		this.clearSubviews('.github-list');
-    _.each(this.collection.models, function(project) {
-			if (!view.projectListed(project)) {
-	      var projectView =
-	      	new ProjectBoard.Views.GithubListItem({ model: project });
-	      view.addSubview('.github-list', projectView);
-			}
+    var filtered = this.collection.filter(
+      function (model) {
+        return !view.projectListed(model);
     });
+    var newProjects = new Backbone.Collection(filtered);
 
-    this.renderSubviews();
+    this.refreshSubviews(
+      '.github-list', newProjects, ProjectBoard.Views.GithubListItem
+    );
+
   },
 
 	projectListed: function(project) {
