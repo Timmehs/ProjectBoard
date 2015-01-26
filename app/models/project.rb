@@ -14,10 +14,12 @@
 #
 
 class Project < ActiveRecord::Base
+  include HTTParty
+  attr_reader :uri, :branch_heads
   validates :name, :owner_id, :html_url, :uid, :description, presence: true
   validates :name, uniqueness: true
-
   acts_as_taggable
+  after_initialize :cpd_score
 
   belongs_to(
     :author,
@@ -25,5 +27,39 @@ class Project < ActiveRecord::Base
     foreign_key: :owner_id,
     primary_key: :id
   )
+
+
+
+
+  def update_branches
+    @uri ||= 'https://api.github.com/repos/' + self.author.username + '/' + self.name
+    @branch_heads ||= {}
+
+    response = HTTParty.get(@uri + '/branches')
+    response.each do |branch|
+      @branch_heads[branch['name']] = branch['commit']['sha']
+    end
+
+    puts "ud branches finish"
+  end
+
+  def get_commits
+    @cpd_commits = 0
+    t = (Time.now - 14.days)
+    one_week_ago = t.strftime("%F") + "T" + t.strftime("%T")
+    @branch_heads.values.each do |sha|
+      query_url = @uri + "/commits?per_page=1000&sha=" + sha +"&since=" + one_week_ago
+      response = HTTParty.get(query_url);
+      @cpd_commits += response.length
+    end
+
+  end
+
+  def cpd_score
+    update_branches if !@branch_heads
+    get_commits if !@cpd_commits
+
+    @cpd = @cpd_commits / 14.0
+  end
 
 end

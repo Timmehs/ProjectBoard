@@ -24,6 +24,12 @@ gem 'acts-as-taggable-on', '~> 3.4'
 
 gem 'font-awesome-rails'
 
+# Use to make githup api requests async
+# gem 'delayed_job_active_record'
+
+gem 'httparty'
+gem 'json'
+
 group :development do
   gem 'spring'
   gem 'better_errors'
