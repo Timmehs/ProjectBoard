@@ -28,9 +28,6 @@ class Project < ActiveRecord::Base
     primary_key: :id
   )
 
-
-
-
   def update_branches
     @uri ||= 'https://api.github.com/repos/' + self.author.username + '/' + self.name
     @branch_heads ||= {}
@@ -51,8 +48,8 @@ class Project < ActiveRecord::Base
 
   def query_commits(sha)
     t = (Time.now - 14.days)
-    one_week_ago = t.strftime("%F") + "T" + t.strftime("%T")
-    query_url = @uri + "/commits?per_page=1000&sha=" + sha +"&since=" + one_week_ago
+    two_weeks_ago = t.strftime("%F") + "T" + t.strftime("%T")
+    query_url = @uri + "/commits?per_page=1000&sha=" + sha +"&since=" + two_weeks_ago
     response = HTTParty.get(query_url);
   end
 
