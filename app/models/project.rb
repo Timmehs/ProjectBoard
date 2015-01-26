@@ -15,11 +15,10 @@
 
 class Project < ActiveRecord::Base
   include HTTParty
-  attr_reader :uri, :branch_heads
+  attr_reader :uri, :branch_heads, :raw_commits
   validates :name, :owner_id, :html_url, :uid, :description, presence: true
   validates :name, uniqueness: true
   acts_as_taggable
-  after_initialize :cpd_score
 
   belongs_to(
     :author,
@@ -27,6 +26,8 @@ class Project < ActiveRecord::Base
     foreign_key: :owner_id,
     primary_key: :id
   )
+
+  has_many :commits
 
   def update_branches
     @uri ||= 'https://api.github.com/repos/' + self.author.username + '/' + self.name
@@ -38,18 +39,27 @@ class Project < ActiveRecord::Base
   end
 
   def get_commits
-    @cpd_commits = 0
-
-    @branch_heads.values.each do |sha|
-      @cpd_commits += query_commits(sha).length
-    end
-
+    @raw_commits = query_commits
   end
 
-  def query_commits(sha)
-    t = (Time.now - 14.days)
+  def save_commits
+    new_commits = []
+    @raw_commits.each do |commit|
+      next if self.commits.pluck('sha').include?(commit['sha'])
+      new_commit = self.commits.new
+      new_commit.sha = commit['sha']
+      new_commit.user_uid = commit['author']['id']
+      new_commit.committed_on = commit['commit']['committer']['date']
+      new_commit.message = commit['commit']['message']
+      new_commit.save
+    end
+  end
+
+  def query_commits
+    t = (Time.now - 15.days)
     two_weeks_ago = t.strftime("%F") + "T" + t.strftime("%T")
-    query_url = @uri + "/commits?per_page=1000&sha=" + sha +"&since=" + two_weeks_ago
+    @uri ||= 'https://api.github.com/repos/' + self.author.username + '/' + self.name
+    query_url = @uri + "/commits?per_page=1000&since=" + two_weeks_ago
     response = HTTParty.get(query_url);
   end
 
