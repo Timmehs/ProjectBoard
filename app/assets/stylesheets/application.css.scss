@@ -16,20 +16,19 @@
  *= require_self
  *= require normalize
  */
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,600);
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,600');
 @import "font-awesome";
 
 body {
-  font-family: 'Raleway';
+  font-family: 'Raleway', 'Helvetica', 'Arial';
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: 'Raleway';
+  font-family: 'Raleway', 'Helvetica', 'Arial';
 }
 
 h1.brand {
   margin-top: 7px;
-  font-family: 'Raleway';
 }
 
 
