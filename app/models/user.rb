@@ -77,4 +77,8 @@ class User < ActiveRecord::Base
     self.session_token
   end
 
+  def cpd
+    self.commits.length / COMMIT_PERIOD.to_f
+  end
+
 end

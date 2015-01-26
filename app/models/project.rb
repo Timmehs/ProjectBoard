@@ -56,10 +56,10 @@ class Project < ActiveRecord::Base
   end
 
   def query_commits
-    t = (Time.now - 15.days)
-    two_weeks_ago = t.strftime("%F") + "T" + t.strftime("%T")
+    t = (Time.now - COMMIT_PERIOD.days)
+    time_ago = t.strftime("%F") + "T" + t.strftime("%T")
     @uri ||= 'https://api.github.com/repos/' + self.author.username + '/' + self.name
-    query_url = @uri + "/commits?per_page=1000&since=" + two_weeks_ago
+    query_url = @uri + "/commits?per_page=1000&since=" + time_ago
     response = HTTParty.get(query_url);
   end
 
@@ -67,7 +67,7 @@ class Project < ActiveRecord::Base
     update_branches if !@branch_heads
     get_commits if !@cpd_commits
 
-    @cpd = @cpd_commits / 14.0
+    @cpd = @cpd_commits / COMMIT_PERIOD
   end
 
 end
