@@ -15,7 +15,7 @@
 
 class Project < ActiveRecord::Base
   include HTTParty
-  attr_reader :uri, :branch_heads, :raw_commits, :new_commits
+  attr_reader :uri, :commit_count, :raw_commits, :new_commits
   validates :name, :owner_id, :html_url, :uid, :description, presence: true
   validates :name, uniqueness: true
   acts_as_taggable
@@ -29,13 +29,12 @@ class Project < ActiveRecord::Base
 
   has_many :commits
 
-  def update_branches
-    @uri ||= 'https://api.github.com/repos/' + self.author.username + '/' + self.name
-    @branch_heads ||= {}
-    response = HTTParty.get(@uri + '/branches')
-    response.each do |branch|
-      @branch_heads[branch['name']] = branch['commit']['sha']
-    end
+  def self.order_by_cpd
+    Project.all.sort_by(&:cpd_score)
+  end
+
+  def cpd_score
+    @commit_count / COMMIT_PERIOD.to_f
   end
 
   def get_commits(opts = {})
@@ -45,15 +44,19 @@ class Project < ActiveRecord::Base
 
   def save_commits
     current_commits_shas = commits.pluck(:sha)
-    @raw_commits.each do |commit|
-      next if current_commits_shas.include?(commit['sha'])
-      new_commit = commits.new
-      new_commit.sha = commit['sha']
-      new_commit.message = commit['commit']['message']
-      new_commit.user_uid = commit['author']['id']
-      new_commit.committed_on = commit['commit']['author']['date']
-      new_commit.save!
+    ActiveRecord::Base.transaction do
+      @raw_commits.each do |commit|
+        next if current_commits_shas.include?(commit['sha'])
+        new_commit = commits.new
+        new_commit.sha = commit['sha']
+        new_commit.message = commit['commit']['message']
+        new_commit.user_uid = commit['author']['id']
+        new_commit.committed_on = commit['commit']['author']['date']
+        new_commit.save!
+      end
     end
+
+    @commit_count = @raw_commits.length
   end
 
   def query_commits(opts = {})
@@ -66,11 +69,5 @@ class Project < ActiveRecord::Base
     response = HTTParty.get(query_url);
   end
 
-  def cpd_score
-    update_branches if !@branch_heads
-    get_commits if !@cpd_commits
-
-    @cpd = @cpd_commits / COMMIT_PERIOD
-  end
 
 end
