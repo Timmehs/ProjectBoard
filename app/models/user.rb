@@ -28,11 +28,7 @@ class User < ActiveRecord::Base
     primary_key: :id
   )
 
-  has_many(
-    :commits,
-    foreign_key: :user_uid,
-    primary_key: :uid
-  )
+  has_many :commits, foreign_key: :user_uid, primary_key: :uid
 
 
   def self.create_with_omniauth(auth)

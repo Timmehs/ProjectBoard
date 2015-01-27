@@ -13,17 +13,10 @@
 #
 
 class Commit < ActiveRecord::Base
-  attr_accessor :sha, :user_uid, :message, :committed_on
   validates :sha, :user_uid, :message, :committed_on, presence: true
   validates :sha, uniqueness: true
 
   belongs_to :project
-
-  belongs_to(
-    :author,
-    class_name: "User",
-    foreign_key: :user_uid,
-    primary_key: :uid
-  )
+  belongs_to :user, foreign_key: :user_uid, primary_key: :uid
 
 end

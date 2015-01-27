@@ -38,31 +38,31 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def get_commits
-    @raw_commits = query_commits
+  def get_commits(opts = {})
+    @raw_commits = query_commits(opts)
     @raw_commits.length
   end
 
   def save_commits
-    @new_commits = []
+    current_commits_shas = commits.pluck(:sha)
     @raw_commits.each do |commit|
-      next if self.commits.pluck('sha').include?(commit['sha'])
-      new_commit = Commit.new
-      new_commit.project_id = self.id
+      next if current_commits_shas.include?(commit['sha'])
+      new_commit = commits.new
       new_commit.sha = commit['sha']
-      new_commit.user_uid = commit['author']['id']
-      new_commit.committed_on = commit['commit']['committer']['date']
       new_commit.message = commit['commit']['message']
-      byebug
-      @new_commits << new_commit
+      new_commit.user_uid = commit['author']['id']
+      new_commit.committed_on = commit['commit']['author']['date']
+      new_commit.save!
     end
   end
 
-  def query_commits
-    t = (Time.now - COMMIT_PERIOD.days)
+  def query_commits(opts = {})
+    page_limit = opts[:page_limit] ? opts[:page_limit] : "1000"
+    time_limit = opts[:days_ago] ? opts[:days_ago] : COMMIT_PERIOD
+    t = (Time.now - time_limit.days)
     time_ago = t.strftime("%F") + "T" + t.strftime("%T")
     @uri ||= 'https://api.github.com/repos/' + self.author.username + '/' + self.name
-    query_url = @uri + "/commits?per_page=1000&since=" + time_ago
+    query_url = @uri + "/commits?per_page="+ page_limit + "&since=" + time_ago
     response = HTTParty.get(query_url);
   end
 
