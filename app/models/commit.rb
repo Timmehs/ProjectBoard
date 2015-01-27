@@ -13,6 +13,7 @@
 #
 
 class Commit < ActiveRecord::Base
+  attr_accessor :sha, :user_uid, :message, :committed_on
   validates :sha, :user_uid, :message, :committed_on, presence: true
   validates :sha, uniqueness: true
 

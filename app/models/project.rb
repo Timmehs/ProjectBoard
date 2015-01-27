@@ -15,7 +15,7 @@
 
 class Project < ActiveRecord::Base
   include HTTParty
-  attr_reader :uri, :branch_heads, :raw_commits
+  attr_reader :uri, :branch_heads, :raw_commits, :new_commits
   validates :name, :owner_id, :html_url, :uid, :description, presence: true
   validates :name, uniqueness: true
   acts_as_taggable
@@ -40,18 +40,21 @@ class Project < ActiveRecord::Base
 
   def get_commits
     @raw_commits = query_commits
+    @raw_commits.length
   end
 
   def save_commits
-    new_commits = []
+    @new_commits = []
     @raw_commits.each do |commit|
       next if self.commits.pluck('sha').include?(commit['sha'])
-      new_commit = self.commits.new
+      new_commit = Commit.new
+      new_commit.project_id = self.id
       new_commit.sha = commit['sha']
       new_commit.user_uid = commit['author']['id']
       new_commit.committed_on = commit['commit']['committer']['date']
       new_commit.message = commit['commit']['message']
-      new_commit.save
+      byebug
+      @new_commits << new_commit
     end
   end
 
