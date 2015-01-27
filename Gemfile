@@ -47,3 +47,4 @@ end
 gem 'figaro'
 gem 'omniauth'
 gem 'omniauth-github'
+gem 'delayed_job_active_record'

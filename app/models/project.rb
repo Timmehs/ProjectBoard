@@ -11,35 +11,36 @@
 #  updated_at  :datetime
 #  uid         :integer
 #  description :text
-#
 
 class Project < ActiveRecord::Base
   include HTTParty
+
   attr_reader :uri, :commit_count, :raw_commits, :new_commits
+
   validates :name, :owner_id, :html_url, :uid, :description, presence: true
   validates :name, uniqueness: true
+
   acts_as_taggable
 
-  belongs_to(
-    :author,
-    class_name: "User",
-    foreign_key: :owner_id,
-    primary_key: :id
-  )
-
+  belongs_to :author, class_name: "User", foreign_key: :owner_id, primary_key: :id
   has_many :commits
 
   def self.order_by_cpd
     Project.all.sort_by(&:cpd_score)
   end
 
+  def self.sync_commits
+    Project.all.each { |p| p.update_commits }
+  end
+
   def cpd_score
+    @commit_count ||= commits.count
     @commit_count / COMMIT_PERIOD.to_f
   end
 
   def get_commits(opts = {})
     @raw_commits = query_commits(opts)
-    @raw_commits.length
+    @commit_count = @raw_commits.length
   end
 
   def save_commits
@@ -56,18 +57,26 @@ class Project < ActiveRecord::Base
       end
     end
 
-    @commit_count = @raw_commits.length
   end
 
   def query_commits(opts = {})
+    client_id, client_secret = ENV['GITHUB_KEY'], ENV['GITHUB_SECRET']
     page_limit = opts[:page_limit] ? opts[:page_limit] : "1000"
     time_limit = opts[:days_ago] ? opts[:days_ago] : COMMIT_PERIOD
     t = (Time.now - time_limit.days)
     time_ago = t.strftime("%F") + "T" + t.strftime("%T")
     @uri ||= 'https://api.github.com/repos/' + self.author.username + '/' + self.name
-    query_url = @uri + "/commits?per_page="+ page_limit + "&since=" + time_ago
+    query_url = @uri + "/commits?per_page="+ page_limit + "&since=" + time_ago +
+      "&client_id=" + client_id + "&client_secret=" + client_secret
+    puts query_url
     response = HTTParty.get(query_url);
   end
 
+  def update_commits
+    get_commits
+    save_commits
+  end
+
+  handle_asynchronously :update_commits
 
 end

@@ -18,5 +18,4 @@ class Commit < ActiveRecord::Base
 
   belongs_to :project
   belongs_to :user, foreign_key: :user_uid, primary_key: :uid
-
 end

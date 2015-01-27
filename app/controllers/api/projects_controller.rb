@@ -1,6 +1,12 @@
 class Api::ProjectsController < ApplicationController
   def index
-    @projects = Project.includes(:author, :tags).all
+    Project.sync_commits
+    @projects = Project.includes(:author, :tags).all.sort_by()
+  end
+
+  def show
+    @project = Project.find(params[:id])
+    @project.update_commits
   end
 
 
