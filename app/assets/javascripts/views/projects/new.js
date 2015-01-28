@@ -97,7 +97,6 @@ ProjectBoard.Views.NewProject = Backbone.CompositeView.extend({
   },
 
   initialize: function() {
-    this.collection = currentUser.ghProjects();
     this.collection.fetch();
     this.listenTo(this.collection, "sync", this.updateGithubList);
   },

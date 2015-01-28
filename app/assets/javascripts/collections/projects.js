@@ -1,6 +1,10 @@
 ProjectBoard.Collections.Projects = Backbone.Collection.extend({
 	model: ProjectBoard.Models.Project,
 	url: 'api/projects',
+
+	comparator: function(p) {
+		return -p.get('commit_count');
+	}
 });
 
 

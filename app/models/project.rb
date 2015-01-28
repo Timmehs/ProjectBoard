@@ -27,13 +27,8 @@ class Project < ActiveRecord::Base
   belongs_to :author, class_name: "User", foreign_key: :owner_id, primary_key: :id
   has_many :commits
 
-  def self.order_by_cpd
-    Project.all.sort_by { |p| -p.commit_count }
-  end
-
   def self.sync_commits
     Project.all.each { |p| p.update_commits }
-
   end
 
   def get_commits(opts = {})

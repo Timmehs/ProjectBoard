@@ -1,7 +1,7 @@
 class Api::ProjectsController < ApplicationController
   def index
     Project.sync_commits
-    @projects = Project.includes(:author, :tags).all.sort_by()
+    @projects = Project.includes(:author, :tags).all
   end
 
   def show

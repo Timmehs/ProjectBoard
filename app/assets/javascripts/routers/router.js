@@ -9,7 +9,6 @@ ProjectBoard.Routers.Router = Backbone.Router.extend({
 		window.currentUser = new ProjectBoard.Models.User({id: CURRENT_USER});
     currentUser.fetch().done(function(){
       console.log( currentUser.get('username') + ' data acquired');
-      currentUser.ghProjects().fetch();
     });
 	},
 
@@ -24,7 +23,9 @@ ProjectBoard.Routers.Router = Backbone.Router.extend({
 	},
 
   newProjectPage: function(event) {
-    var view = new ProjectBoard.Views.NewProject();
+    var view = new ProjectBoard.Views.NewProject({
+      collection: currentUser.ghProjects();
+    });
     this._swapView(view);
   },
 
