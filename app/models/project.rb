@@ -2,15 +2,17 @@
 #
 # Table name: projects
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)      not null
-#  owner_id    :integer          not null
-#  html_url    :string(255)      not null
-#  homepage    :string(255)      not null
-#  created_at  :datetime
-#  updated_at  :datetime
-#  uid         :integer
-#  description :text
+#  id           :integer          not null, primary key
+#  name         :string(255)      not null
+#  owner_id     :integer          not null
+#  html_url     :string(255)      not null
+#  homepage     :string(255)      not null
+#  created_at   :datetime
+#  updated_at   :datetime
+#  uid          :integer
+#  description  :text
+#  commit_count :integer
+#
 
 class Project < ActiveRecord::Base
   include HTTParty
@@ -31,6 +33,7 @@ class Project < ActiveRecord::Base
 
   def self.sync_commits
     Project.all.each { |p| p.update_commits }
+
   end
 
   def cpd_score
@@ -40,7 +43,7 @@ class Project < ActiveRecord::Base
 
   def get_commits(opts = {})
     @raw_commits = query_commits(opts)
-    @commit_count = @raw_commits.length
+    self.update(commit_count: @raw_commits.length)
   end
 
   def save_commits
@@ -78,5 +81,4 @@ class Project < ActiveRecord::Base
   end
 
   handle_asynchronously :update_commits
-
 end
