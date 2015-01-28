@@ -24,7 +24,7 @@ ProjectBoard.Routers.Router = Backbone.Router.extend({
 
   newProjectPage: function(event) {
     var view = new ProjectBoard.Views.NewProject({
-      collection: currentUser.ghProjects();
+      collection: currentUser.ghProjects()
     });
     this._swapView(view);
   },

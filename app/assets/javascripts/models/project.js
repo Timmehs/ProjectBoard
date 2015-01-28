@@ -21,4 +21,8 @@ ProjectBoard.Models.Project = Backbone.Model.extend({
 		return "http://api.github.com/repos/" + this.authorName() + "/" + this.get('name');
 	},
 
+	cpd: function() {
+		return (this.get('commit_count') / 15).toFixed(2);
+	}
+
 });
