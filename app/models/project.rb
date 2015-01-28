@@ -28,7 +28,7 @@ class Project < ActiveRecord::Base
   has_many :commits
 
   def self.order_by_cpd
-    Project.all.sort_by(&:cpd_score)
+    Project.all.sort_by { |p| -p.cpd_score }
   end
 
   def self.sync_commits
