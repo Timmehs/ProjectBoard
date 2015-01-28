@@ -28,17 +28,12 @@ class Project < ActiveRecord::Base
   has_many :commits
 
   def self.order_by_cpd
-    Project.all.sort_by { |p| -p.cpd_score }
+    Project.all.sort_by { |p| -p.commit_count }
   end
 
   def self.sync_commits
     Project.all.each { |p| p.update_commits }
 
-  end
-
-  def cpd_score
-    @commit_count ||= commits.count
-    @commit_count / COMMIT_PERIOD.to_f
   end
 
   def get_commits(opts = {})
