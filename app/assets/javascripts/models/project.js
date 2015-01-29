@@ -22,7 +22,7 @@ ProjectBoard.Models.Project = Backbone.Model.extend({
 	},
 
 	cpd: function() {
-		return (this.get('commit_count') / 15).toFixed(2);
+		return (this.get('commit_count') / 7).toFixed(2);
 	}
 
 });

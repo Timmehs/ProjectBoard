@@ -41,12 +41,23 @@
 	}
 }
 
+i.nav-btn-text-sm {
+	display: none;
+}
+
 .auth-buttons {
   float: right;
 	height: 57px;
 	* {
 		float: right;
 		margin: 5px;
+	}
+
+
+
+	span {
+		padding:0px;
+		margin: 0px;
 	}
 
 	.new_proj_btn {
@@ -56,6 +67,7 @@
 			color: black;
 		}
 	}
+
 
 	.user-avatar {
 		height: 33px;
@@ -74,16 +86,29 @@
 	#main-wrapper {
 		width: 100%;
 	}
+
+	.nav-btn-text-sm {
+		display: none;
+	}
+
+	.nav-btn-text-bg {
+		display: block;
+	}
+
 }
 
 @media screen and (max-width: 750px) {
-	.head-btn-bg {
-		display: none;
+
+
+	.auth-buttons a {
+		padding: 5px;
 	}
-	.head-btn-sm {
-		display: inline-block;
+
+	i.nav-btn-text-sm {
+		display: block;
 	}
-	#main-wrapper {
-		width: 100%;
+
+	.nav-btn-text-bg {
+		display:none;
 	}
 }

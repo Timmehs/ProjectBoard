@@ -6,9 +6,14 @@
       <div class="user-avatar"
         style="background-image: url(<%= current_user.avatar %>)"></div>
         <a data-method="delete" href="/api/sessions" rel="nofollow"
-					 class="btn btn-default logout">Logout</a>
-       <a class="btn btn-default logout" href="#/projects/new">
-         Add Project
+					 class="btn btn-default">
+           <i class="fa fa-sign-out nav-btn-text-sm"></i>
+           <span class="nav-btn-text-bg">Logout</span>
+        </a>
+       <a class="btn btn-default" href="#/projects/new">
+         <i class="fa fa-plus-circle nav-btn-text-sm"></i>
+         <span class="nav-btn-text-bg">Add Project</span>
+
        </a>
       <% else %>
         <a class="btn btn-primary" href="/auth/github/">Sign in with Github</a>

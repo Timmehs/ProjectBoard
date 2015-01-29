@@ -1,3 +1,3 @@
 
 
-COMMIT_PERIOD = 15 #days
+COMMIT_PERIOD = 7 #days
