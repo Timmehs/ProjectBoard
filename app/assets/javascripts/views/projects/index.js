@@ -33,9 +33,4 @@ ProjectBoard.Views.ProjectIndex = Backbone.CompositeView.extend({
     this.renderSubviews('.hacker-index');
   },
 
-
-
-
-
-
 });
