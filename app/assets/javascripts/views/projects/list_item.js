@@ -13,6 +13,5 @@ ProjectBoard.Views.ProjectListItem = Backbone.View.extend({
     var colorAdjust = cpd > 10 ? 1 : cpd / 3;
     var alpha = 0.3 * colorAdjust;
     this.$el.css("background-color", "rgba(114, 209, 250, " + alpha + ")");
-    console.log("Cpd: " + cpd + ", alpha: " + alpha);
   }
 });
