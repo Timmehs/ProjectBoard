@@ -30,6 +30,9 @@ class User < ActiveRecord::Base
 
   has_many :commits, foreign_key: :user_uid, primary_key: :uid
 
+  has_many :board_memberships
+  has_many :boards, through: :board_memberships
+
 
   def self.create_with_omniauth(auth)
     create! do |user|
